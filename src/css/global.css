@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+section {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 80px auto;
+}
+
+table {
+    width: 90%;
+    margin: 0 auto;
+}
+
+table thead {
+    border: 1px solid black;
+    text-align: center;
+    background-color: rgb(95, 237, 39);
+}
+
+table thead tr,
+th {
+    border: 1px solid black;
+    height: 30px;
+}
+
+table tbody tr td {
+    text-align: center;
+}
+
+i {
+    font-size: large;
+    margin-right: 5px;
+}
+
+.listaOrcamentos tr:hover {
+    background-color: rgba(128, 128, 128, 0.23);
+    transition: all .3s ease-in-out;
+
+}
+
+i:hover {
+    cursor: pointer;
+}
