@@ -17,7 +17,7 @@ function retornarHome() {
 window.addEventListener('load', renderOrcamentos)
 
 async function renderOrcamentos() {
-    const renderOrcamentos = await fetch("http://localhost:3333/orcamento")
+    const renderOrcamentos = await fetch("https://orcamento-api-node.vercel.app/orcamento/")
         .then((Response) => Response.json())
         .then((data) => {
             listaOrcamento.innerHTML = ""
@@ -82,7 +82,7 @@ async function salvar() {
         }
 
         try {
-            const response = await fetch('http://localhost:3333/orcamento', {
+            const response = await fetch('https://orcamento-api-node.vercel.app/orcamento/', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function resetar() {
 
 async function gerarPDF(id) {
     try {
-        window.open(`http://localhost:3333/orcamento/${id}`, "_blank")
+        window.open(`https://orcamento-api-node.vercel.app/orcamento/${id}`, "_blank")
     } catch (error) {
         console.error("Erro ao tentar gerar PDF: ", error);
         alert('Erro ao gerar pdf do orçamento')
@@ -136,7 +136,7 @@ function editar(posicao) {
 
 async function deletar(id) {
     try {
-        const response = await fetch(`http://localhost:3333/orcamento/${id}`, {
+        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`, {
             method: "DELETE"
         });
 
