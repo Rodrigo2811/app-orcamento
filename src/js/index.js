@@ -82,7 +82,7 @@ async function salvar() {
         }
 
         try {
-            const response = await fetch('https://orcamento-api-node.vercel.app/orcamento/', {
+            const response = await fetch('https://orcamento-api-node.vercel.app/orcamento', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
