@@ -17,7 +17,7 @@ function retornarHome() {
 window.addEventListener('load', renderOrcamentos)
 
 async function renderOrcamentos() {
-    const renderOrcamentos = await fetch("https://orcamento-api-node.vercel.app/orcamento/")
+    const renderOrcamentos = await fetch("https://orcamento-api-node.vercel.app/orcamento")
         .then((Response) => Response.json())
         .then((data) => {
             listaOrcamento.innerHTML = ""
