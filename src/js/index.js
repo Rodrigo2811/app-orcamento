@@ -110,7 +110,22 @@ function resetar() {
 
 async function gerarPDF(id) {
     try {
-        window.open(`https://orcamento-api-node.vercel.app/orcamento/${id}`, "_blank")
+        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`, {
+            method: "GET"
+        })
+
+        if (!response.ok) {
+            throw new Error("Erro ao gerar PDF");
+        }
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a')
+        a.href = url;
+        a.download - `orcamento-${id}.pdf`;
+        document.body.appendChild(a)
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url)
     } catch (error) {
         console.error("Erro ao tentar gerar PDF: ", error);
         alert('Erro ao gerar pdf do orçamento')
