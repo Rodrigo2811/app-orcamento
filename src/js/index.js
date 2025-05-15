@@ -110,7 +110,7 @@ function resetar() {
 
 async function gerarPDF(id) {
     try {
-        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`, {
+        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
             method: "GET"
         })
 
