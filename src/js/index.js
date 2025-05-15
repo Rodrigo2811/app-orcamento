@@ -115,7 +115,8 @@ async function gerarPDF(id) {
         })
 
         if (!response.ok) {
-            throw new Error("Erro ao gerar PDF");
+            const erroText = await response.text()
+            throw new Error("Erro ao gerar PDF: " + response.status - erroText);
         }
         const blob = await response.blob()
         const url = window.URL.createObjectURL(blob);
