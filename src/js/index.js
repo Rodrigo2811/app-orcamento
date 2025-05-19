@@ -69,7 +69,7 @@ async function salvar() {
             }
         })
 
-        const total = parseFloat(impTotal.value)
+        const total = servicos.reduce((acc, servico) => acc + (servico.valor || 0), 0);
 
 
         const orcamento = {
@@ -122,7 +122,7 @@ async function gerarPDF(id) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a')
         a.href = url;
-        a.download = `orcamento-${_id}.pdf`;
+        a.download = `orcamento-${id}.pdf`;
         document.body.appendChild(a)
         a.click();
         a.remove();
