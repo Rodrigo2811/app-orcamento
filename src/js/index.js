@@ -122,11 +122,12 @@ async function gerarPDF(id) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a')
         a.href = url;
-        a.download = `orcamento-${id}.pdf`;
+        a.download = `orcamento-${Number(id)}.pdf`;
         document.body.appendChild(a)
         a.click();
         a.remove();
         window.URL.revokeObjectURL(url)
+
     } catch (error) {
         console.error("Erro ao tentar gerar PDF: ", error);
         alert('Erro ao gerar pdf do orçamento')
