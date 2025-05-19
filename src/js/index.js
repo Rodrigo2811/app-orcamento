@@ -109,42 +109,40 @@ function resetar() {
 }
 
 async function gerarPDF(id) {
+    try {
+        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
+            method: "GET"
+        })
 
-    console.log(id)
-    //     try {
-    //         const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
-    //             method: "GET"
-    //         })
+        if (!response.ok) {
+            const erroText = await response.text()
+            throw new Error("Erro ao gerar PDF: " + response.status - erroText);
+        }
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a')
+        a.href = url;
+        a.download = `orcamento-${id}.pdf`;
+        document.body.appendChild(a)
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url)
 
-    //         if (!response.ok) {
-    //             const erroText = await response.text()
-    //             throw new Error("Erro ao gerar PDF: " + response.status - erroText);
-    //         }
-    //         const blob = await response.blob()
-    //         const url = window.URL.createObjectURL(blob);
-    //         const a = document.createElement('a')
-    //         a.href = url;
-    //         a.download = `orcamento-${id}.pdf`;
-    //         document.body.appendChild(a)
-    //         a.click();
-    //         a.remove();
-    //         window.URL.revokeObjectURL(url)
+    } catch (error) {
+        console.error("Erro ao tentar gerar PDF: ", error);
+        alert('Erro ao gerar pdf do orçamento')
 
-    //     } catch (error) {
-    //         console.error("Erro ao tentar gerar PDF: ", error);
-    //         alert('Erro ao gerar pdf do orçamento')
-
-    //     }
-    // }
+    }
+}
 
 
-    // function encerrar() {
-    //     const status = confirm("Deeseja Fechar janela?")
+function encerrar() {
+    const status = confirm("Deeseja Fechar janela?")
 
-    //     if (status === true) {
-    //         window.location.href = ('https://www.google.com.br')
-    //         return
-    //     }
+    if (status === true) {
+        window.location.href = ('https://www.google.com.br')
+        return
+    }
 
 }
 
