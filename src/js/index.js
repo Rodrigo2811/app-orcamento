@@ -29,7 +29,7 @@ async function renderOrcamentos() {
                 <td>
                 <i class="bi bi-pencil" onclick="editar('${element._id}')"></i> 
                 <i class="bi bi-trash" onclick="deletar('${element._id}')"></i> 
-                <i class="bi bi-file-arrow-down" onclick="gerarPDF('${element.Number(_id)}')">
+                <i class="bi bi-file-arrow-down" onclick="gerarPDF('${element._id}')">
                 </td>
             
                 </tr>`
@@ -108,7 +108,7 @@ function resetar() {
     document.querySelector('#impCliente').value = ""
 }
 
-async function gerarPDF() {
+async function gerarPDF(id) {
     try {
         const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
             method: "GET"
@@ -122,7 +122,7 @@ async function gerarPDF() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a')
         a.href = url;
-        a.download = `orcamento-${Number(id)}.pdf`;
+        a.download = `orcamento-${id}.pdf`;
         document.body.appendChild(a)
         a.click();
         a.remove();
