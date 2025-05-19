@@ -122,7 +122,7 @@ async function gerarPDF(id) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a')
         a.href = url;
-        a.download = `orcamento-${id}.pdf`;
+        a.download = `orcamento-${_id}.pdf`;
         document.body.appendChild(a)
         a.click();
         a.remove();
