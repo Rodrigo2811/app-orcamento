@@ -109,11 +109,13 @@ function resetar() {
 }
 
 async function gerarPDF(id) {
+
+
     try {
         const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
             method: "GET"
         })
-
+        console.log(response)
         if (!response.ok) {
             const erroText = await response.text()
             throw new Error("Erro ao gerar PDF: " + response.status - erroText);
