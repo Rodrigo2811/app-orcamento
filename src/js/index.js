@@ -128,7 +128,7 @@ async function gerarPDF(id) {
 
             <span ><img class="logo" src="/src/images/logo.jpg" alt="logo-belcar"></span>
           </header >
-          
+
             <h1>Orçamento</h1>
 
             <p><strong>Veículo:</strong> ${orcamento.veiculo}</p>
@@ -174,7 +174,7 @@ async function gerarPDF(id) {
             filename: `orcamento-${orcamento.cliente.replace(/\s+/g, '-')}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
         // 4. Gerar o PDF
