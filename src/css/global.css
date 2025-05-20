@@ -97,11 +97,11 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 160px;
+    height: 220px;
     gap: 10px;
     text-align: center;
     padding: 5px;
-    margin: 15px auto;
+    margin: 25px auto;
 }
 
 footer {
@@ -123,5 +123,5 @@ footer span {
 
 .logo {
     width: 400px;
-    height: 40px;
+    height: 80px;
 }
