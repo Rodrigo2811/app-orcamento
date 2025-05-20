@@ -101,7 +101,7 @@ header {
     gap: 10px;
     text-align: center;
     padding: 5px;
-    margin: 25px auto;
+    margin: 15px auto;
 }
 
 footer {
@@ -109,7 +109,7 @@ footer {
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    margin-top: 120px;
+    margin-top: 80px;
     gap: 5px;
 }
 
