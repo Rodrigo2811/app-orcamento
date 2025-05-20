@@ -127,3 +127,7 @@ footer span {
     width: 400px;
     height: 80px;
 }
+
+.total {
+    text-align: end;
+}
