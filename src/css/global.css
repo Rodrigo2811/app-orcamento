@@ -29,6 +29,7 @@ table thead tr,
 th {
     border: 1px solid black;
     height: 30px;
+    text-align: center;
 }
 
 table tbody tr td {
@@ -68,8 +69,8 @@ table {
     margin-bottom: 20px;
 }
 
-tr,
-th {
+th,
+td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
