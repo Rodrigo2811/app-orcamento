@@ -128,6 +128,7 @@ async function gerarPDF(id) {
 
             <span ><img class="logo" src="/src/images/logo.jpg" alt="logo-belcar"></span>
           </header >
+          
             <h1>Orçamento</h1>
 
             <p><strong>Veículo:</strong> ${orcamento.veiculo}</p>
