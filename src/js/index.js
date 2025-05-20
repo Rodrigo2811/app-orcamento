@@ -120,32 +120,51 @@ async function gerarPDF(id) {
         // 2. Gerar conteúdo HTML para o PDF
         const container = document.createElement('div');
         container.innerHTML = `
-      <h2>R.F.R Oficina, Funilaria e Pintura EIRELE - ME</h2>
-      <p>Rua Boa Esperança, Nº 112, Centro Dias D’Ávila-BA CEP: 42.80-000</p>
-      <p><strong>Cliente:</strong> ${orcamento.cliente}</p>
-      <p><strong>Veículo:</strong> ${orcamento.veiculo}</p>
-      <p><strong>Cor:</strong> ${orcamento.cor}</p>
+     <header>
+            <h2>R.F.R Oficina, Funilaria e Pintura EIRELE - ME</h2>
+            <p>Rua Boa Esperança, Nº 112, Centro Dias D’Ávila-BA CEP: 42.80-000 <br> Tel.(71) 9 8162-3273 EMAIL:
+              oficinabelcarrfr@yahoo.com.br </br> CNPJ: 28.042.796/0001-64 - Inscrição Estadual - 141.459.169 ME
+            </p>
 
-      <table border="1" cellpadding="5" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Valor (R$)</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${orcamento.servico.map(s => `
-            <tr>
-              <td>${s.item}</td>
-              <td>${s.descricao}</td>
-              <td>${Number(s.valor).toFixed(2)}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
+            <span >(Bel Car)</span>
+          </header >
+            <h1>Orçamento</h1>
 
-      <h3>Total: R$ ${Number(orcamento.total).toFixed(2)}</h3>
+            <p><strong>Veículo:</strong> ${orcamento.veiculo}</p>
+            <p><strong>Cor:</strong> ${orcamento.cor}</p>
+            <p><strong>Cliente:</strong> ${orcamento.cliente}</p>
+
+            <h2>Serviços</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${orcamento.servico.map(item => `
+                  <tr>
+                    <td>${item.item}</td>
+                    <td>${item.descricao}</td>
+                    <td>R$ ${Number(item.valor).toFixed(2)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="total">Total:</td>
+                  <td class="total">R$ ${Number(orcamento.total).toFixed(2)}</td>
+                </tr>
+              </tfoot>
+            </table>
+            <footer>
+
+                <span>Cliente</span>
+                <span>Bel Car</span>
+
+            </footer>
     `;
 
         // 3. Configurar o html2pdf.js
