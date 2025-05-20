@@ -126,7 +126,7 @@ async function gerarPDF(id) {
               oficinabelcarrfr@yahoo.com.br </br> CNPJ: 28.042.796/0001-64 - Inscrição Estadual - 141.459.169 ME
             </p>
 
-            <span ><img class="log" src="/src/images/logo.jpg" alt="logo-belcar"></span>
+            <span ><img class="logo" src="/src/images/logo.jpg" alt="logo-belcar"></span>
           </header >
             <h1>Orçamento</h1>
 
