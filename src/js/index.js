@@ -109,34 +109,62 @@ function resetar() {
 }
 
 async function gerarPDF(id) {
-
-
     try {
-        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamentoPDF/${id}`, {
-            method: "GET"
-        })
-
+        // 1. Requisição para buscar o orçamento pelo ID
+        const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`);
         if (!response.ok) {
-            const erroText = await response.text()
-            throw new Error("Erro ao gerar PDF: " + response.status - erroText);
+            throw new Error("Erro ao buscar orçamento");
         }
-        const blob = await response.blob()
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a')
-        a.href = url;
-        a.download = `orcamento-${id}.pdf`;
-        document.body.appendChild(a)
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(url)
+        const orcamento = await response.json();
+
+        // 2. Gerar conteúdo HTML para o PDF
+        const container = document.createElement('div');
+        container.innerHTML = `
+      <h2>R.F.R Oficina, Funilaria e Pintura EIRELE - ME</h2>
+      <p>Rua Boa Esperança, Nº 112, Centro Dias D’Ávila-BA CEP: 42.80-000</p>
+      <p><strong>Cliente:</strong> ${orcamento.cliente}</p>
+      <p><strong>Veículo:</strong> ${orcamento.veiculo}</p>
+      <p><strong>Cor:</strong> ${orcamento.cor}</p>
+
+      <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orcamento.servico.map(s => `
+            <tr>
+              <td>${s.item}</td>
+              <td>${s.descricao}</td>
+              <td>${Number(s.valor).toFixed(2)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <h3>Total: R$ ${Number(orcamento.total).toFixed(2)}</h3>
+    `;
+
+        // 3. Configurar o html2pdf.js
+        const opt = {
+            margin: 0.5,
+            filename: `orcamento-${orcamento.cliente.replace(/\s+/g, '-')}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        // 4. Gerar o PDF
+        html2pdf().set(opt).from(container).save();
 
     } catch (error) {
-        console.error("Erro ao tentar gerar PDF: ", error);
-        alert('Erro ao gerar pdf do orçamento')
-
+        console.error("Erro ao gerar PDF:", error);
+        alert("Erro ao gerar PDF do orçamento");
     }
 }
-
 
 function encerrar() {
     const status = confirm("Deeseja Fechar janela?")
