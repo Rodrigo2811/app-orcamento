@@ -78,8 +78,10 @@ formLogin.addEventListener('submit', async (e) => {
 
     const loginData = await respLogin.json()
 
-    if (loginData.ok) {
+    if (respLogin.ok) {
         window.location.href = '/orcamentos.html'
+    } else {
+        console.log(loginData.message || "Erro ao efetuar o login")
     }
 
     userLogin.value = ""
