@@ -79,7 +79,7 @@ formLogin.addEventListener('submit', async (e) => {
     const loginData = await respLogin.json()
 
     if (loginData.ok) {
-        window.location.href = '/orcamentos.html'
+        window.location.href = '/orcamentos.html, "_self"'
     }
 
     userLogin.value = ""
