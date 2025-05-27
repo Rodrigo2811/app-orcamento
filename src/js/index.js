@@ -79,6 +79,7 @@ formLogin.addEventListener('submit', async (e) => {
     const loginData = await respLogin.json()
 
     if (respLogin.ok) {
+        alert(`Bem vindo ${usuario}!`)
         window.location.href = '/orcamentos.html'
     } else {
         alert(loginData.message || "Erro ao efetuar o login")
