@@ -1,5 +1,15 @@
 
+//imput register
 
+
+const usuario = document.querySelector('#impUser')
+const senha = document.querySelector('impSenha')
+
+const email = document.querySelector('#impEmail')
+
+const formLogin = document.querySelector('#form-login')
+
+// imputs orcamento
 const listaOrcamento = document.querySelector('.listaOrcamentos');
 
 const impVeiculo = document.getElementById('impVeiculo');
@@ -11,10 +21,67 @@ const impValor = document.querySelector('.impValor');
 const impTotal = document.getElementById('impTotal')
 
 function retornarHome() {
-    window.location.href = ("/index.html")
+    window.location.href = ("/orcamentos.html")
 }
 
+
 window.addEventListener('load', renderOrcamentos)
+
+
+async function register() {
+    if (usuario.value !== "" && senha.value !== "" && email.value !== "") {
+
+        const registerUser = {
+            usuario: usuario.value,
+            senha: senha.value,
+            email: email.value
+        }
+
+        try {
+            const responseUser = await fetch("https://orcamento-api-node.vercel.app/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(registerUser)
+            })
+
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+}
+
+formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const userLogin = document.querySelector('#impUser');
+    const passwordLogin = document.querySelector('#impPassword');
+
+    const respLogin = await fetch('https://orcamento-api-node.vercel.app/login', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            usuario: userLogin.value,
+            password: passwordLogin.value
+        })
+    })
+
+    const loginData = await respLogin.json()
+
+    if (respLogin.ok) {
+        window.location.href = '/orcamentos.html'
+    }
+
+    userLogin.value = ""
+    passwordLogin.value = ""
+})
+
+
+
+
 
 async function renderOrcamentos() {
     const renderOrcamentos = await fetch("https://orcamento-api-node.vercel.app/orcamento")
@@ -190,7 +257,7 @@ function encerrar() {
     const status = confirm("Deeseja Fechar janela?")
 
     if (status === true) {
-        window.location.href = ('https://www.google.com.br')
+        window.location.href = ('/index.html')
         return
     }
 
@@ -216,3 +283,5 @@ async function deletar(id) {
         console.error(error)
     }
 }
+
+
