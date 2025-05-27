@@ -47,11 +47,17 @@ async function register() {
                 body: JSON.stringify(registerUser)
             })
 
+            alert('Usuário Cadastrado com sucesso')
+
         } catch (error) {
             console.error(error)
         }
 
     }
+
+    usuario.value = ""
+    email.value = ""
+    senha.value = ""
 }
 
 formLogin.addEventListener('submit', async (e) => {
