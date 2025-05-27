@@ -81,7 +81,7 @@ formLogin.addEventListener('submit', async (e) => {
     if (respLogin.ok) {
         window.location.href = '/orcamentos.html'
     } else {
-        console.log(loginData.message || "Erro ao efetuar o login")
+        alert(loginData.message || "Erro ao efetuar o login")
     }
 
     userLogin.value = ""
