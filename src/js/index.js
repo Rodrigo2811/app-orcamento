@@ -71,8 +71,8 @@ formLogin.addEventListener('submit', async (e) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            usuario: userLogin.value,
-            password: passwordLogin.value
+            nome_usuario: userLogin.value,
+            senha: passwordLogin.value
         })
     })
 
