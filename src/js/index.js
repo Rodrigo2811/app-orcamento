@@ -6,7 +6,7 @@ const formLogin = document.querySelector('#form-login')
 
 //imput register
 const usuario = document.querySelector('#impUser')
-const senha = document.querySelector('impSenha')
+const senha = document.querySelector('#impSenha')
 const email = document.querySelector('#impEmail')
 
 
