@@ -65,7 +65,7 @@ formLogin.addEventListener('submit', async (e) => {
     const userLogin = document.querySelector('#impUser');
     const passwordLogin = document.querySelector('#impPassword');
 
-    const respLogin = await fetch('https://orcamento-api-node.vercel.app/login', {
+    const respLogin = await fetch('https://orcamento-api-node.vercel.app/user/login', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
