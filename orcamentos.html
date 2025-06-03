@@ -55,6 +55,61 @@
                 </tbody>
             </table>
         </section>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="editarOrcamento" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Veiculo</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" id="impEditVeiculo">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Cor</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" id="impEditCor">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Cliente</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-sm" id="impEditCliente">
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style=" width: 50px;">Item</th>
+                                    <th style="width: 550px;">Descrição</th>
+                                    <th style="width: 100px;">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-servicos-Edit">
+
+                            </tbody>
+                    </div>
+
+                </div>
+
+                <tfoot>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" id="btnSalvarEdicao" class="btn btn-primary"
+                            onclick="salvarEdicao()">Salvar</button>
+                    </div>
+                </tfoot>
+            </div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>

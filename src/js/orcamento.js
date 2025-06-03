@@ -3,7 +3,6 @@
 const listaOrcamento = document.querySelector('.listaOrcamentos');
 
 
-
 window.addEventListener('load', renderOrcamentos)
 
 async function renderOrcamentos() {
@@ -17,7 +16,7 @@ async function renderOrcamentos() {
                 <td>${element.veiculo}</td>
                 <td>R$ ${Number(element.total).toFixed(2)}</td>
                 <td>
-                <i class="bi bi-pencil" onclick="editar('${element._id}')"></i> 
+                <i class="bi bi-pencil" data-bs-toggle="modal" data-bs-target="#editarOrcamento" onclick="editar('${element._id}')"></i> 
                 <i class="bi bi-trash" onclick="deletar('${element._id}')"></i> 
                 <i class="bi bi-file-arrow-down" onclick="gerarPDF('${element._id}')">
                 </td>
@@ -29,14 +28,14 @@ async function renderOrcamentos() {
 
 async function gerarPDF(id) {
   try {
-    // 1. Requisição para buscar o orçamento pelo ID
+
     const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`);
     if (!response.ok) {
       throw new Error("Erro ao buscar orçamento");
     }
     const orcamento = await response.json();
 
-    // 2. Gerar conteúdo HTML para o PDF
+    //  Gerar conteúdo HTML para o PDF
     const container = document.createElement('div');
     container.innerHTML = `
      <header>
@@ -87,7 +86,7 @@ async function gerarPDF(id) {
             </footer>
     `;
 
-    // 3. Configurar o html2pdf.js
+    // Configurar o html2pdf.js
     const opt = {
       margin: 0.5,
       filename: `orcamento-${orcamento.cliente.replace(/\s+/g, '-')}.pdf`,
@@ -116,9 +115,122 @@ function encerrar() {
 }
 
 
-function editar(posicao) {
-  console.log(posicao)
+async function editar(id) {
+
+  const listaEdicao = document.querySelector("#tabela-servicos-Edit")
+  listaEdicao.innerHTML = ""
+
+  try {
+    const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${id}`)
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar orçamento para edição.")
+    }
+    const orcamento = await response.json()
+
+    document.querySelector('#impEditVeiculo').value = orcamento.veiculo
+    document.querySelector('#impEditCor').value = orcamento.cor
+    document.querySelector('#impEditCliente').value = orcamento.cliente
+
+    document.querySelector('#btnSalvarEdicao').setAttribute('data-orcamento-id', orcamento._id)
+
+    orcamento.servico.map((item) => {
+      listaEdicao.innerHTML += `
+        <tr>
+          <td> <input class="item-edit" value="${item.item}"></td>
+          <td> <input class="descricao-edit" value="${item.descricao}"></td>
+          <td><input class="valor-edit" value="R$ ${Number(item.valor).toFixed(2)}"></td>
+            
+        </tr>
+      
+      `
+
+
+    })
+
+  } catch (error) {
+    console.error(error)
+  }
+
 }
+
+async function salvarEdicao(id) {
+  const veiculo = document.querySelector('#impEditVeiculo').value;
+  const cor = document.querySelector('#impEditCor').value;
+  const cliente = document.querySelector('#impEditCliente').value;
+
+  const servicosEditados = [];
+  const linhasServico = document.querySelectorAll("#tabela-servicos-Edit tr");
+
+  linhasServico.forEach(linha => {
+    const serviceId = linha.getAttribute('data-service-id'); // Pega o _id do serviço
+    const item = linha.querySelector(".item-edit").value;
+    const descricao = linha.querySelector(".descricao-edit").value;
+    // Remove "R$" e substitui vírgula por ponto para parseFloat
+    const valorString = linha.querySelector(".valor-edit").value.replace('R$', '').replace(',', '.').trim();
+    const valor = parseFloat(valorString);
+
+    if (item && descricao && !isNaN(valor)) {
+      const service = {
+        item,
+        descricao,
+        valor
+      };
+      // Adiciona o _id se ele existir (para itens existentes)
+      if (serviceId) {
+        service._id = serviceId;
+      }
+      servicosEditados.push(service);
+    }
+  });
+
+  const total = servicosEditados.reduce((sum, service) => sum + service.valor, 0);
+
+  const dadosAtualizados = {
+    veiculo,
+    cor,
+    cliente,
+    servico: servicosEditados,
+    total
+  };
+
+  try {
+    // Certifique-se de que o ID está sendo passado corretamente, se você estiver usando um botão de salvar
+    // O 'id' no parâmetro da função deve vir do clique no botão de edição,
+    // ou você pode pegar do atributo data-orcamento-id no botão de salvar.
+    const orcamentoIdParaAtualizar = id || document.querySelector('#btnSalvarEdicao').getAttribute('data-orcamento-id');
+
+    if (!orcamentoIdParaAtualizar) {
+      throw new Error("ID do orçamento para atualização não encontrado.");
+    }
+
+    const response = await fetch(`https://orcamento-api-node.vercel.app/orcamento/${orcamentoIdParaAtualizar}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dadosAtualizados)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Erro desconhecido ao salvar edição.");
+    }
+
+    alert("Orçamento atualizado com sucesso!");
+    const myModalEl = document.getElementById('editarOrcamento');
+    const modal = bootstrap.Modal.getInstance(myModalEl);
+    if (modal) {
+      modal.hide();
+    }
+
+    renderOrcamentos(); // Recarrega a lista de orçamentos para mostrar as alterações
+  } catch (error) {
+    console.error("Erro ao salvar edição:", error);
+    alert(`Erro ao salvar edição: ${error.message}`);
+  }
+}
+
 
 async function deletar(id) {
   try {

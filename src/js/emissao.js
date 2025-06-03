@@ -1,7 +1,5 @@
 
 
-
-
 const impVeiculo = document.getElementById('impVeiculo');
 const impCor = document.getElementById('impCor');
 const impCliente = document.getElementById('impCliente');
