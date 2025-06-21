@@ -140,6 +140,10 @@ footer span {
     width: 100%;
 }
 
+.modal {
+    margin: 20px -200px;
+}
+
 
 @media screen and (max-width: 478px) {
 

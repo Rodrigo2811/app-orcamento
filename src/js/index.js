@@ -10,9 +10,6 @@ const email = document.querySelector('#impEmail')
 
 
 
-
-
-
 async function register() {
     if (usuario.value !== "" && senha.value !== "" && email.value !== "") {
 
